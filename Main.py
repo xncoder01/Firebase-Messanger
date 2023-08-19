@@ -14,7 +14,6 @@ from Res.Templates.Login import Ui_Login
 from Res.Templates.Home import Ui_Home
 from PIL import Image, ImageDraw
 from datetime import datetime
-import numpy as np
 import threading
 import traceback
 import sqlite3
@@ -22,7 +21,7 @@ import random
 import time
 import sys
 import cv2
-import PIL
+import os
 import gc
 import re
 
@@ -2530,6 +2529,10 @@ try:
     dbstore = firestore.client()
     lock = QMutex()
 
+    if not os.path.exists("Res"):
+        os.makedirs("Res")
+    if not os.path.exists("Res/Database"):
+        os.makedirs("Res/Database")
     conneTemp = sqlite3.connect('Res/Database/temp.db', check_same_thread=False)
     curTemp = conneTemp.cursor()
     curTemp.execute("PRAGMA recursive_triggers = ON;")
